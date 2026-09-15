@@ -1,49 +1,53 @@
 # Architecture
 
-## System Architecture
-
-[Describe the overall architecture of your system. Replace the Mermaid diagram below with your actual architecture.]
-
 ```mermaid
-graph TD
-    A[User / Browser] -->|HTTP| B[Frontend - React]
-    B -->|REST API| C[Backend - FastAPI]
-    C -->|SDK| D[watsonx.ai]
-    C -->|Query| E[PostgreSQL]
-    C -->|Publish| F[Slack Webhook]
-    D -->|Inference Result| C
+flowchart TD
+    subgraph Data Sources
+        S[Sensor Data]
+        W[Weather Data]
+        I[Incident History]
+        A[Asset Data]
+    end
+
+    subgraph Prediction Engine (Member 1)
+        RF[Random Forest Classifier]
+        FP[Failure Probability %]
+    end
+
+    subgraph Decision Engine (Member 2)
+        RE[Risk Engine]
+        GIS[Grid Impact Score]
+        PR[Priority Ranking]
+        IBM[IBM Granite / Watsonx.ai]
+    end
+
+    subgraph Visualization (Member 3)
+        UI[Streamlit Dashboard]
+    end
+
+    S --> RF
+    I --> RF
+    W --> RF
+    A --> RF
+    
+    RF --> FP
+    
+    FP --> RE
+    W --> RE
+    I --> RE
+    A --> RE
+    
+    RE --> GIS
+    GIS --> PR
+    
+    PR --> IBM
+    IBM --> UI
+    
+    PR --> UI
 ```
 
-## Components
-
-| Component | Technology | Responsibility |
-|---|---|---|
-| Frontend | [e.g., React 18] | [e.g., Dashboard UI, user interaction] |
-| Backend API | [e.g., FastAPI] | [e.g., Business logic, orchestration] |
-| AI / ML | [e.g., watsonx.ai] | [e.g., Anomaly scoring, classification] |
-| Database | [e.g., PostgreSQL] | [e.g., Storing pipeline events and scores] |
-| Notifications | [e.g., Slack API] | [e.g., Alerting on threshold breaches] |
-
-## Data Flow
-
-[Describe how data moves through your system from input to output.]
-
-1. [e.g., Pipeline logs are ingested via a webhook from GitHub Actions]
-2. [e.g., Logs are preprocessed and chunked into 512-token segments]
-3. [e.g., Each chunk is sent to the watsonx.ai inference endpoint]
-4. [e.g., Anomaly scores are stored in PostgreSQL]
-5. [e.g., The React dashboard polls the API every 30 seconds to refresh]
-
-## Security Considerations
-
-[Note any security decisions relevant to the architecture — even if basic.]
-
-- [e.g., API keys stored in environment variables, never committed to git]
-- [e.g., All API routes require a Bearer token]
-- [e.g., Database credentials rotated via IBM Secrets Manager]
-
-## Scalability Notes
-
-[Optional: how would this scale beyond the hackathon prototype?]
-
-[e.g., "The FastAPI backend is stateless and could be horizontally scaled behind a load balancer. The watsonx.ai calls are the bottleneck and would benefit from request batching."]
+### Member Contributions
+- **Member 1 (Data & ML)**: Historical data generation, ML training, Random Forest inference.
+- **Member 2 (Risk & GenAI)**: Grid Impact calculus, Priority assignments, IBM Watsonx integration for generative plans.
+- **Member 3 (UI)**: Streamlit visual analytics, tables, and asset inspection pane.
+- **Member 4 (Integration)**: `app.py` orchestration, API mock fallbacks, application flow.

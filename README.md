@@ -1,121 +1,49 @@
-# 🚀 [Your Project Title Here]
+# GridGuard AI
 
-> ⚠️ **Replace everything in `[ ]` brackets with your actual content before submission.**
+**Power-grid transformers/substations can fail and cause outages.** We want to detect risky equipment before it fails by combining equipment health, weather, and historical incidents.
 
----
+GridGuard AI is an end-to-end intelligence platform that helps grid operators predict equipment failures, prioritize maintenance based on grid impact, and generate actionable AI-driven crew recommendations.
 
-## 👥 Team
+## The Solution: Predict → Prioritize → Explain → Act
 
-| Field | Value |
-|---|---|
-| **Team Name** | [Your Team Name] |
-| **Track** | [AI / DevOps / Sustainability / Open] |
-| **Team Lead** | [Name] — [email@ibm.com] |
-| **Members** | [Name 1], [Name 2], [Name 3] |
+1. **Predict**: Machine Learning (Random Forest) predicts failure probability based on sensor health, load, and age.
+2. **Prioritize**: Risk Engine combines failure probability with weather severity and incident history to calculate Grid Impact.
+3. **Explain & Act**: IBM Granite generates maintenance instructions and recommends crew pre-positioning.
 
----
+## Architecture
 
-## 🎯 Problem Statement
+![Architecture](docs/architecture.md)
 
-> In 2–3 sentences: What problem does your project solve? Who experiences this problem?
+- **Frontend**: Streamlit Dashboard
+- **Backend/Integration**: Python
+- **AI/ML**: Scikit-Learn (Random Forest)
+- **Generative AI**: IBM Watsonx / Granite
 
-[Describe the real-world problem your project addresses. Be specific about who the user is and what pain point they face.]
+## How to Run
 
----
+1. Clone the repository
+2. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+3. Run the ML pipeline to train the model:
+   ```bash
+   python src/ai/train_model.py
+   ```
+4. Start the application:
+   ```bash
+   streamlit run app.py
+   ```
 
-## 💡 Solution
+## Key Features
+- **Risk Map & Summary**: At-a-glance view of the grid's health.
+- **Priority Table**: Ranked list of critical assets requiring attention.
+- **AI Maintenance Advisor**: IBM Granite-powered maintenance plans.
 
-> In 2–3 sentences: What did you build? How does it solve the problem above?
+## Demo Scenario
+To test the core killer scenario, select asset `TX-104` in the dashboard to see an end-to-end critical risk evaluation and crew pre-positioning recommendation.
 
-[Describe your solution clearly. Explain the core mechanism — what makes it work.]
-
----
-
-## ✨ Key Features
-
-- **Feature 1:** [Brief description — e.g., "Real-time anomaly detection using watsonx.ai"]
-- **Feature 2:** [Brief description]
-- **Feature 3:** [Brief description]
-- **Feature 4:** [Optional]
-- **Feature 5:** [Optional]
-
----
-
-## 🛠️ Tech Stack
-
-| Category | Technologies |
-|---|---|
-| **Languages** | [e.g., Python, TypeScript] |
-| **Frameworks** | [e.g., FastAPI, React] |
-| **IBM Technologies** | [e.g., watsonx.ai, IBM Bob, IBM Cloud] |
-| **Databases** | [e.g., PostgreSQL, Redis] |
-| **Other** | [e.g., Docker, GitHub Actions] |
-
----
-
-## 📁 Repository Structure
-
-```
-├── src/                  # All source code
-├── docs/                 # Written documentation
-│   ├── problem-statement.md
-│   ├── solution-overview.md
-│   ├── architecture.md
-│   └── setup-guide.md
-├── demo/                 # Demo artifacts
-│   ├── screenshots/      # App screenshots
-│   └── demo-video-link.txt  # Link to demo video
-├── presentation/         # Slide deck
-└── submission.yaml       # Structured submission metadata
-```
-
----
-
-## ⚡ How to Run
-
-> **Copy these exact steps from your [`docs/setup-guide.md`](docs/setup-guide.md)**
-
-```bash
-# 1. Clone the repo
-git clone https://github.com/[your-repo].git
-cd [your-repo]
-
-# 2. Install dependencies
-[your install command here]
-
-# 3. Configure environment
-cp .env.example .env
-# Edit .env with your values
-
-# 4. Run the project
-[your run command here]
-```
-
----
-
-## 🖥️ Demo
-
-| Artifact | Link |
-|---|---|
-| 📹 Demo Video | [See demo/demo-video-link.txt](demo/demo-video-link.txt) |
-| 🌐 Live Demo | [See demo/live-demo-url.txt](demo/live-demo-url.txt) |
-| 🖼️ Screenshots | [See demo/screenshots/](demo/screenshots/) |
-| 📊 Presentation | [See presentation/slides.pdf](presentation/) |
-
----
-
-## ⚠️ Known Limitations
-
-> Be honest — judges appreciate transparency over overclaiming.
-
-- [Limitation 1: e.g., "Authentication is mocked — not production-ready"]
-- [Limitation 2: e.g., "Only tested on Chrome"]
-- [Limitation 3: e.g., "Feature X is scaffolded but not fully implemented"]
-
----
-
-## 🏅 What We're Most Proud Of
-
-[Tell the judges what part of your submission is strongest and worth paying close attention to.]
-
----
+## Future Scope
+- Live IoT sensor streaming integration.
+- Real-time weather API integration (e.g., The Weather Company).
+- Automated work order creation in Maximo.

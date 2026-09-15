@@ -1,41 +1,19 @@
 # Solution Overview
 
-## What We Built
+GridGuard AI is a comprehensive predictive maintenance solution built specifically for power grid infrastructure.
 
-[Describe your solution in plain language. Avoid jargon — write as if explaining to a smart colleague unfamiliar with your tech stack.]
+## Data Integration
+The system ingests data from four distinct streams:
+1. **Sensor Data**: IoT measurements like temperature, vibration, oil quality, and partial discharge.
+2. **Weather Data**: Localized forecasts including storm severity and wind speed.
+3. **Incident History**: Past failure records and time since last incident.
+4. **Asset Metadata**: Age, load capacity, and customer exposure.
 
-## How It Works
+## Predictive ML Engine
+A Random Forest Classifier trained on historical synthetic data evaluates the incoming data streams to predict a precise Failure Risk percentage for the next 7 days.
 
-[Explain the core mechanism step by step. A numbered list or simple flow works well here.]
+## Risk & Priority Engine
+Instead of just flagging high-risk equipment, the Risk Engine combines the Failure Risk with Weather Severity, Customer Exposure, and Incident History to calculate a 0-100 `Grid Impact Score`. This dictates a Priority Level (P1 to P4).
 
-1. [Step 1: e.g., "User connects their GitHub repository via OAuth"]
-2. [Step 2: e.g., "The system ingests pipeline logs and feeds them to watsonx.ai"]
-3. [Step 3: e.g., "An anomaly score is computed and displayed on the dashboard"]
-4. [Step 4: e.g., "Alerts are sent to Slack when the score exceeds a threshold"]
-
-## Architecture Diagram
-
-> See [`architecture.md`](architecture.md) for the detailed diagram.
-
-[Optionally include a simple ASCII or Mermaid diagram here for quick reference.]
-
-```
-[User] → [Frontend: React] → [API: FastAPI] → [watsonx.ai] → [Dashboard]
-                                    ↓
-                             [PostgreSQL DB]
-```
-
-## Key Design Decisions
-
-| Decision | Rationale |
-|---|---|
-| [e.g., Used watsonx.ai for anomaly detection] | [e.g., Pre-trained models reduced time-to-value vs. building from scratch] |
-| [Decision 2] | [Rationale 2] |
-| [Decision 3] | [Rationale 3] |
-
-## IBM Technologies Used
-
-[Explain specifically HOW you used each IBM technology — not just that you used it.]
-
-- **[IBM Tech 1, e.g., watsonx.ai]:** [How it was used — e.g., "Used the `ibm/granite-13b-instruct-v2` model via the Python SDK to classify anomaly types from log text."]
-- **[IBM Tech 2]:** [How it was used]
+## Generative AI Action
+Using IBM Granite / Watsonx.ai, the structured risk profile is translated into an actionable maintenance and dispatch plan, helping operators know exactly *what* to do, *why* it's urgent, and *who* to send.

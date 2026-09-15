@@ -1,79 +1,42 @@
 # Setup Guide
 
-> **This file is read by the automated evaluation pipeline. Be precise and complete.**
+This guide allows you to run the GridGuard AI application from scratch locally.
 
 ## Prerequisites
-
-Before you begin, ensure you have the following installed:
-
-- [ ] [e.g., Python 3.11+]
-- [ ] [e.g., Node.js 18+]
-- [ ] [e.g., Docker Desktop]
-- [ ] [e.g., An IBM Cloud account with watsonx.ai access]
-
-## Environment Variables
-
-Copy `.env.example` to `.env` and fill in the values:
-
-```bash
-cp .env.example .env
-```
-
-| Variable | Description | Required |
-|---|---|---|
-| `WATSONX_API_KEY` | Your IBM watsonx.ai API key | Yes |
-| `WATSONX_PROJECT_ID` | Your watsonx.ai project ID | Yes |
-| `DATABASE_URL` | PostgreSQL connection string | Yes |
-| `SLACK_WEBHOOK_URL` | Slack webhook for alerts | No |
+- Python 3.8+
+- Git
 
 ## Installation
 
-```bash
-# 1. Clone the repository
-git clone https://github.com/[your-org]/[your-repo].git
-cd [your-repo]
+1. **Clone the repository**
+   ```bash
+   git clone <repo-url>
+   cd bob-ai-hackathon-Tech_Innovators
+   ```
 
-# 2. Install backend dependencies
-[your command — e.g.: pip install -r requirements.txt]
+2. **Install Dependencies**
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-# 3. Install frontend dependencies (if applicable)
-[your command — e.g.: cd frontend && npm install]
+3. **Train the ML Model**
+   Generate the `model.pkl` used for predicting equipment failure:
+   ```bash
+   python src/ai/train_model.py
+   ```
 
-# 4. Set up the database (if applicable)
-[your command — e.g.: python manage.py migrate]
-```
+4. **Environment Variables (Optional)**
+   The app provides a robust mock for IBM WatsonX/Granite integration so it functions flawlessly out-of-the-box. If you wish to use live IBM WatsonX credentials:
+   - Create a `.env` file at the root.
+   - Add `IBM_CLOUD_API_KEY=your_key_here`
+   - Add `WATSONX_PROJECT_ID=your_id_here`
 
-## Running the Application
+5. **Start the Application**
+   ```bash
+   streamlit run app.py
+   ```
 
-```bash
-# Start the backend
-[your command — e.g.: uvicorn app.main:app --reload]
-
-# Start the frontend (in a separate terminal, if applicable)
-[your command — e.g.: cd frontend && npm run dev]
-```
-
-The application will be available at: `http://localhost:[PORT]`
-
-## Running Tests
-
-```bash
-[your test command — e.g.: pytest tests/ -v]
-```
-
-## Quick Demo (Optional)
-
-If you have a demo script or sample data to showcase the project quickly:
-
-```bash
-[e.g.: python demo/seed_demo_data.py]
-[e.g.: open http://localhost:8000/demo]
-```
-
-## Troubleshooting
-
-| Issue | Solution |
-|---|---|
-| [e.g., `ModuleNotFoundError`] | [e.g., Run `pip install -r requirements.txt` again] |
-| [e.g., Database connection refused] | [e.g., Ensure PostgreSQL is running: `docker compose up db`] |
-| [e.g., watsonx.ai 401 error] | [e.g., Check `WATSONX_API_KEY` in your `.env` file] |
+6. **Usage**
+   - Open your browser to `http://localhost:8501`.
+   - The dashboard will display all predicted risks and priorities.
+   - Select an asset from the dropdown (e.g., `TX-104`) to view the deep-dive analysis and AI recommendations.
